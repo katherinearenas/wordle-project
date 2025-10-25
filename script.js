@@ -137,6 +137,8 @@ updateAverageScore = (newScore) => {
   };
 }
 
+game.displayStats();
+
 const game = new WordleGame();
 
 document.getElementById("submit-btn").addEventListener("click", game.handleGuess);
