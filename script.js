@@ -12,28 +12,38 @@ class WordleGame {
     this.getRandomWord();
   }
 
-  getRandomWord = async () => {
-    try {
-      const res = await fetch("https://random-word-api.herokuapp.com/word?length=5");
-      const data = await res.json();
-      this.answer = data[0].toLowerCase();
-      console.log("Answer:", this.answer);
-    } catch (err) {
-      console.error("Random word API failed — using local word instead.");
-      this.answer = this.words[Math.floor(Math.random() * this.words.length)];
-      console.log("Fallback answer:", this.answer);
-    }
-  };
+initBoard = () => {
+  const board = document.getElementById("game-board");
+  board.innerHTML = ""; 
+  
+  for (let i = 0; i < this.maxTries * 5; i++) {
+    const cell = document.createElement("div");
+    cell.classList.add("cell");
+    board.appendChild(cell);
+  }
+};
 
-  initBoard = () => {
-    const board = document.getElementById("game-board");
-    board.innerHTML = "";
-    for (let i = 0; i < this.maxTries * 5; i++) {
-      const cell = document.createElement("div");
-      cell.classList.add("cell");
-      board.appendChild(cell);
+getRandomWord = async () => {
+  try {
+    const res = await fetch("https://random-word-api.herokuapp.com/word?length=5");
+    const data = await res.json();
+    const randomWord = data[0].toLowerCase();
+
+    const check = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${randomWord}`);
+    if (check.ok) {
+      this.answer = randomWord;
+      console.log("Answer (valid from API):", this.answer);
+    } else {
+      this.answer = this.words[Math.floor(Math.random() * this.words.length)];
+      console.log("Fallback (invalid API word):", this.answer);
     }
-  };
+  } catch (err) {
+    console.error("Random word API failed — using local fallback.");
+    this.answer = this.words[Math.floor(Math.random() * this.words.length)];
+    console.log("Fallback answer:", this.answer);
+  }
+};
+
 
 handleGuess = async () => {
   const input = document.getElementById("guess-input");
@@ -137,9 +147,10 @@ updateAverageScore = (newScore) => {
   };
 }
 
-game.displayStats();
+
 
 const game = new WordleGame();
+game.displayStats();
 
 document.getElementById("submit-btn").addEventListener("click", game.handleGuess);
 document.getElementById("restart-btn").addEventListener("click", () => location.reload());

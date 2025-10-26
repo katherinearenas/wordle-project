@@ -22,7 +22,9 @@ body {
   font-size: 2em;
   text-transform: uppercase;
   background-color: white;
+  border-radius: 6px;
 }
+
 
 #stats {
   margin-top: 25px;
