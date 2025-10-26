@@ -49,6 +49,52 @@ body {
   color: #6aaa64;
 }
 
+button {
+  background-color: #6aaa64;       
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  margin: 5px;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+button:hover {
+  background-color: #538d4e;     
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
+#reset-stats {
+  background-color: #c9b458;        
+}
+
+#reset-stats:hover {
+  background-color: #b59f3b;
+}
+
+
+#restart-btn {
+  background-color: #787c7e;      
+}
+
+#restart-btn:hover {
+  background-color: #565758;
+}
+
+#input-area {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 
 .correct { background-color: #6aaa64; color: white; }
 .wrong-place { background-color: #c9b458; color: white; }

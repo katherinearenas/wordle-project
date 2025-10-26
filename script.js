@@ -61,14 +61,14 @@ class WordleGame {
       const guessesUsed = this.currentRow + 1;
       alert(`🎉 You win in ${guessesUsed} guesses!`);
       this.updateAverageScore(guessesUsed);
-      document.getElementById("restart-btn").style.display = "block";
+      document.getElementById("restart-btn").style.visibility = "visible";
       return;
     }
 
     this.currentRow++;
     if (this.currentRow >= this.maxTries) {
       alert(`💀 Game over! The word was: ${this.answer.toUpperCase()}`);
-      document.getElementById("restart-btn").style.display = "block";
+      document.getElementById("restart-btn").style.visibility = "visible";
     }
 
     input.value = "";
@@ -139,8 +139,14 @@ class WordleGame {
 }
 
 
+
 const game = new WordleGame();
 game.displayStats();
 
 document.getElementById("submit-btn").addEventListener("click", () => game.handleGuess());
 document.getElementById("restart-btn").addEventListener("click", () => location.reload());
+document.getElementById("reset-stats").addEventListener("click", () => {
+  localStorage.removeItem("wordleScores");
+  game.displayStats();
+  alert("Statistics cleared!");
+});
