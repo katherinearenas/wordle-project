@@ -150,7 +150,15 @@ updateAverageScore = (newScore) => {
 
 
 const game = new WordleGame();
-game.displayStats();
+
 
 document.getElementById("submit-btn").addEventListener("click", game.handleGuess);
 document.getElementById("restart-btn").addEventListener("click", () => location.reload());
+
+window.addEventListener("DOMContentLoaded", () => {
+  const game = new WordleGame();
+  game.displayStats();
+
+  document.getElementById("submit-btn").addEventListener("click", game.handleGuess);
+  document.getElementById("restart-btn").addEventListener("click", () => location.reload());
+});
